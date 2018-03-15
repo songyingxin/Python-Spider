@@ -47,6 +47,7 @@ class spider_tieba:
         else:
             print('提取失败')
             return NOne
+
     def get_total_num(self):
         '''
         获取该帖子的总页数
@@ -82,24 +83,19 @@ class spider_tieba:
 
         return result
 
-
-def main():
-    spider =  spider_tieba('http://tieba.baidu.com/p/2477816287')
-    html = spider.get_page()    # 获取百度贴吧的HTML文本
-    title = spider.get_title()    # 获取帖子标题
-    total_num = spider.get_total_num()    # 获取帖子页数
-
-    page_num = 1
-    result = ''
-    while page_num <= total_num:
-        result += "第" + str(page_num) + "层的数据" + "\n" + spider.get_content(page_num) + "\n\n\n"
-        page_num += 1
-    print(result)
-
-    # 将文本写入到output.txt文件中，此处我就不进行封装了，不要太简单
-    file = open("output.txt","w")
-    file.write(result)
-    file.close()
-
 if __name__ == '__main__':
-    main()
+        spider =  spider_tieba('http://tieba.baidu.com/p/2477816287')
+        html = spider.get_page()    # 获取百度贴吧的HTML文本
+        title = spider.get_title()    # 获取帖子标题
+        total_num = spider.get_total_num()    # 获取帖子页数
+
+        page_num = 1
+        result = ''
+        while page_num <= total_num:
+            result += "第" + str(page_num) + "页的数据" + "\n" + spider.get_content(page_num) + "\n\n\n"
+            page_num += 1
+
+        # 将文本写入到output.txt文件中，以便观察
+        file = open("output.txt","w")
+        file.write(result)
+        file.close()
